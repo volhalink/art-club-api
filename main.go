@@ -58,7 +58,7 @@ var Be = []Step{{
 	}}, {
 	ID:          "1",
 	Title:       "Левае і правае паўшар'і мозга",
-	Description: "JТут будзе апісанне, але крышачку пазней.",
+	Description: "Тут будзе апісанне, але крышачку пазней.",
 	Type:        Read,
 	Exercises:   make([]Exercise, 0, 0)}, {
 	ID:          "2",

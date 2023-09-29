@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArtClub.BFF", "ArtClub.BFF\ArtClub.BFF.csproj", "{96728F3E-2A4D-4C6D-BAFA-64E7802D15AA}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{D8E2F513-74F5-4D18-879E-D237E58C0F6C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nginx", "nginx", "{EF44AF84-4FC4-465D-A957-E147767950B3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "templates", "templates", "{EA0CA17D-3EFE-499D-A542-177251C41247}"
+	ProjectSection(SolutionItems) = preProject
+		nginx\templates\default.conf.template = nginx\templates\default.conf.template
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Scripts", "Scripts", "{4E7B8EC9-903C-42F8-A449-6A2471E915E9}"
+	ProjectSection(SolutionItems) = preProject
+		create_dev_certificate.ps1 = create_dev_certificate.ps1
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96728F3E-2A4D-4C6D-BAFA-64E7802D15AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96728F3E-2A4D-4C6D-BAFA-64E7802D15AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96728F3E-2A4D-4C6D-BAFA-64E7802D15AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96728F3E-2A4D-4C6D-BAFA-64E7802D15AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8E2F513-74F5-4D18-879E-D237E58C0F6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8E2F513-74F5-4D18-879E-D237E58C0F6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8E2F513-74F5-4D18-879E-D237E58C0F6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8E2F513-74F5-4D18-879E-D237E58C0F6C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{EA0CA17D-3EFE-499D-A542-177251C41247} = {EF44AF84-4FC4-465D-A957-E147767950B3}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B155F8A6-4CFA-42AD-991A-376BB5031241}
+	EndGlobalSection
+EndGlobal

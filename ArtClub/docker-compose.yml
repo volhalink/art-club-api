@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  mongo:
+    container_name: artclub_mongodb
+    image: mongo:6.0.6-jammy
+    ports:
+      - "7300:27017"
+    networks:
+      - artclub_mongodb
+  artclub_bff:
+    container_name: artclub_bff
+    image: ${DOCKER_REGISTRY-}artclubbff
+    build:
+      context: .
+      dockerfile: ArtClub.BFF/Dockerfile
+    networks:
+      - artclub_mongodb
+      - artclub_frontend
+  artclub_frontend:
+    container_name: artclub_frontend
+    image: ${DOCKER_REGISTRY-}artclubfrontend
+    build:
+      context: .
+      dockerfile: ../../art-club/Dockerfile
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    networks:
+      - artclub_frontend
+  nginx:
+    container_name: artclub
+    image: nginx:1.24.0
+    volumes:
+     - ./nginx/templates:/etc/nginx/templates
+    environment:
+     - NGINX_HOST=artclub
+     - NGINX_PORT=7303
+    networks:
+      - artclub_frontend
+    command: [nginx-debug, '-g', 'daemon off;']  
+
+networks:
+  artclub_frontend:
+    driver: bridge
+  artclub_mongodb:
+    driver: bridge

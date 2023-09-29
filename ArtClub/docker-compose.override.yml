@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  mongo:
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin-password
+      - MONGO_INITDB_DATABASE=admin
+      - MONGO_API_USERNAME=api
+      - MONGO_API_PASSWORD=dev-pass
+      - MONGO_API_DATABASE=artclub
+      - MONGO_API_COLLECTION=learningpathes
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ./Artclub.Bff/mongodb:/data/db
+      - ./Artclub.Bff/data/mongo-init.sh:/docker-entrypoint-initdb.d/mongo-init.sh:ro
+  artclub_bff:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=https://+:7301
+      - MongoDbSettings__ConnectionString=mongodb://api:dev-pass@artclub_mongodb:27017/?authSource=artclub
+      - MongoDbSettings__DatabaseName=artclub
+      - MongoDbSettings__LearningPathesCollectionName=learningpathes
+      - Kestrel__Certificates__Default__Path=/root/.aspnet/https/dev_Artclub.pfx
+    ports:
+      - "7301:7301"
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  artclub_frontend:
+    environment:
+      - NODE_ENV=Development
+      - FRONTEND_PORT=7302
+      - KEY_PATH=/root/https_cert/dev_Artclub.key
+      - CERT_PATH=/root/https_cert/dev_Artclub.pem
+    ports:
+      - "7302:7302"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/https_cert:ro
+      - ../../art-club:/app
+      - /app/node_modules/
+  nginx:
+    ports:
+      - "7303:7303"
+    volumes:
+      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
