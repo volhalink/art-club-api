@@ -12,18 +12,20 @@ namespace ArtClub.BFF.Services
            _learningPathCollection = database.GetCollection<LearningPath>(collectionName);
         }
 
-        public IList<LearningPath> GetLearningPaths(string language)
+        public IList<LearningPathView> GetLearningPaths(string language)
         {
             var filter = Builders<LearningPath>.Filter.Eq(p => p.Language, language)
                 & Builders<LearningPath>.Filter.Eq(p => p.Enabled, true);
-            var learningPathes = _learningPathCollection.Find(filter).ToList();
+            var projection = Builders<LearningPath>.Projection.Exclude(p => p.Steps);
+            var learningPathes = _learningPathCollection.Find(filter).Project<LearningPathView>(projection).ToList();
 
             return learningPathes;
         }
 
-        public LearningPath GetTrainingPath(string id)
+        public LearningPath GetLearningPath(string language, string id)
         {
-            var filter = Builders<LearningPath>.Filter.Eq(p => p.Id, id)
+            var filter = Builders<LearningPath>.Filter.Eq(p => p.Language, language)
+                & Builders<LearningPath>.Filter.Eq(p => p.LearningPathId, id)
                 & Builders<LearningPath>.Filter.Eq(p => p.Enabled, true);
             var learningPath = _learningPathCollection.Find(filter).FirstOrDefault();
 

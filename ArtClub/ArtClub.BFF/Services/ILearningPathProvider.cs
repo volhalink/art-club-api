@@ -4,8 +4,8 @@ namespace ArtClub.BFF.Services
 {
     public interface ILearningPathProvider
     {
-        IList<LearningPath> GetLearningPaths(string language);
-        LearningPath GetTrainingPath(string id);
+        IList<LearningPathView> GetLearningPaths(string language);
+        LearningPath GetLearningPath(string language, string id);
 
     }
 }

@@ -1,8 +1,12 @@
 ﻿using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using System.ComponentModel;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
 
 namespace ArtClub.BFF.Models
 {
+    //[JsonConverter(typeof(JsonStringEnumConverter), typeof(CamelCaseNamingStrategy))]
     public enum StepType
     {
         Start =  0,
@@ -12,8 +16,7 @@ namespace ArtClub.BFF.Models
 
     public record struct Step
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("id")]
         public string Id { get; init; }
 
         [BsonElement("order")]

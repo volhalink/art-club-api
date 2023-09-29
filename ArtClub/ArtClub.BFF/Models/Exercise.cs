@@ -5,8 +5,7 @@ namespace ArtClub.BFF.Models
 {
     public record struct Exercise
     {
-        [BsonId]
-        [BsonRepresentation(BsonType.ObjectId)]
+        [BsonElement("id")]
         public string Id { get; init; }
 
         [BsonElement("title")]

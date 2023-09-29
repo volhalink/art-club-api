@@ -1,7 +1,14 @@
 using ArtClub.BFF.Services;
 using MongoDB.Driver;
+using System.Text.Json.Serialization;
+using System.Text.Json;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+{
+    options.SerializerOptions.Converters.Add(new JsonStringEnumConverter(JsonNamingPolicy.CamelCase));
+});
 
 var mongoDbSettings = new MongoDbSettings();
 builder.Configuration.GetSection(nameof(MongoDbSettings)).Bind(mongoDbSettings);
@@ -12,5 +19,6 @@ builder.Services.AddScoped<ILearningPathProvider, MongoDbLearningPathProvider>(s
 var app = builder.Build();
 
 app.MapGet("/api/{language}/learningpath", (string language, ILearningPathProvider learningPathProvider) => learningPathProvider.GetLearningPaths(language));
+app.MapGet("/api/{language}/learningpath/{id}", (string language, string id, ILearningPathProvider learningPathProvider) => learningPathProvider.GetLearningPath(language, id));
 
 app.Run();
